@@ -1,0 +1,7 @@
+自定义一个标签<nj:valueSet  name value > 完成整个标签的处理工作
+
+
+需要做以下几步：
+1、创建一个对应的解析类（handler），在init方法中添加parse类型
+2、创建一个handler.properties，让应用程序能够完成加载工作，找到对应的handler
+3、创建一个标签解析类xxxParse（解析对应的标签）

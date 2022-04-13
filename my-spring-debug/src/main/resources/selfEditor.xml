@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="customer" class="com.nj.selfEditor.Customer">
+		<property name="name" value="zhangsan"></property>
+		<property name="address" value="湖南省_长沙市_岳麓区"></property>
+	</bean>
+
+	<!-- 第一种方式，通过注册器注册 -->
+	<!--<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="propertyEditorRegistrars">
+			<list>
+				<bean class="com.nj.selfEditor.AddressPropertyEditorRegistrar"></bean>
+			</list>
+		</property>
+	</bean>-->
+
+	<!-- 第二种方式，直接添加到customEditors -->
+	<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="customEditors">
+			<map>
+				<entry key="com.nj.selfEditor.Address" value="com.nj.selfEditor.AddressPropertyEditor"></entry>
+			</map>
+		</property>
+	</bean>
+</beans>

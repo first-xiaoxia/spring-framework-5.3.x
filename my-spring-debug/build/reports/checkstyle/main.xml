@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="9.0.1">
+<file name="D:\workspace\spring-framework-5.3.x\my-spring-debug\src\main\java\com\nj\MyClassXmlPathApplicationContext.java">
+<error line="1" severity="error" message="Line does not match expected header line of &apos;^\Q/*\E$&apos;." source="io.spring.javaformat.checkstyle.check.SpringHeaderCheck"/>
+<error line="18" severity="error" message="Javadoc 首句应以句号结尾。" source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocStyleCheck"/>
+</file>
+<file name="D:\workspace\spring-framework-5.3.x\my-spring-debug\src\main\java\com\nj\Test.java">
+<error line="1" severity="error" message="Line does not match expected header line of &apos;^\Q/*\E$&apos;." source="io.spring.javaformat.checkstyle.check.SpringHeaderCheck"/>
+<error line="4" column="1" severity="error" message="&apos;org.springframework.context.ApplicationContext&apos; 应与之前的导入语句通过空行隔开。" source="com.puppycrawl.tools.checkstyle.checks.imports.ImportOrderCheck"/>
+<error line="7" column="1" severity="error" message="工具类应隐藏 public 构造器。" source="com.puppycrawl.tools.checkstyle.checks.design.HideUtilityClassConstructorCheck"/>
+<error line="7" column="14" severity="error" message="Class name &apos;Test&apos; must not end with &apos;Test&apos; (checked pattern &apos;^[A-Z][a-zA-Z0-9_$]*(?&lt;!Test)$&apos;)." source="com.puppycrawl.tools.checkstyle.checks.naming.TypeNameCheck"/>
+</file>
+<file name="D:\workspace\spring-framework-5.3.x\my-spring-debug\src\main\java\com\nj\design\pattern\adapter\TestAdapter.java">
+<error line="1" severity="error" message="Line does not match expected header line of &apos;^\Q/*\E$&apos;." source="io.spring.javaformat.checkstyle.check.SpringHeaderCheck"/>
+<error line="3" column="15" severity="error" message="不应使用 &apos;.*&apos; 形式的导入 - java.io.* 。" source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
+<error line="5" column="1" severity="error" message="工具类应隐藏 public 构造器。" source="com.puppycrawl.tools.checkstyle.checks.design.HideUtilityClassConstructorCheck"/>
+</file>
+<file name="D:\workspace\spring-framework-5.3.x\my-spring-debug\src\main\java\com\nj\design\pattern\bridge\AbstractDrawCircle.java">
+<error line="1" severity="error" message="header.missing" source="io.spring.javaformat.checkstyle.check.SpringHeaderCheck"/>
+</file>
+<file name="D:\workspace\spring-framework-5.3.x\my-spring-debug\src\main\java\com\nj\design\pattern\bridge\BlueDrawCircle.java">
+<error line="1" severity="error" message="header.missing" source="io.spring.javaformat.checkstyle.check.SpringHeaderCheck"/>
+<error line="4" severity="error" message="Javadoc 首句应以句号结尾。" source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocStyleCheck"/>
+</file>
+<file name="D:\workspace\spring-framework-5.3.x\my-spring-debug\src\main\java\com\nj\design\pattern\bridge\Circle.java">
+<error line="1" severity="error" message="Line does not match expected header line of &apos;^\Q/*\E$&apos;." source="io.spring.javaformat.checkstyle.check.SpringHeaderCheck"/>
+<error line="5" column="9" severity="error" message="每一个变量的定义必须在它的声明处，且在同一行。" source="com.puppycrawl.tools.checkstyle.checks.coding.MultipleVariableDeclarationsCheck"/>
+<error line="16" column="36" severity="error" message="对实例属性 &apos;radius&apos; 的引用需要 &quot;this.&quot;。" source="com.puppycrawl.tools.checkstyle.checks.coding.RequireThisCheck"/>
+<error line="16" column="43" severity="error" message="对实例属性 &apos;x&apos; 的引用需要 &quot;this.&quot;。" source="com.puppycrawl.tools.checkstyle.checks.coding.RequireThisCheck"/>
+<error line="16" column="45" severity="error" message="对实例属性 &apos;y&apos; 的引用需要 &quot;this.&quot;。" source="com.puppycrawl.tools.checkstyle.checks.coding.RequireThisCheck"/>
+</file>
+<file name="D:\workspace\spring-framework-5.3.x\my-spring-debug\src\main\java\com\nj\design\pattern\bridge\DemoBridge.java">
+<error line="1" severity="error" message="header.missing" source="io.spring.javaformat.checkstyle.check.SpringHeaderCheck"/>
+<error line="3" column="1" severity="error" message="工具类应隐藏 public 构造器。" source="com.puppycrawl.tools.checkstyle.checks.design.HideUtilityClassConstructorCheck"/>
+</file>
+<file name="D:\workspace\spring-framework-5.3.x\my-spring-debug\src\main\java\com\nj\design\pattern\bridge\DrawCircleApi.java">
+<error line="1" severity="error" message="header.missing" source="io.spring.javaformat.checkstyle.check.SpringHeaderCheck"/>
+<error line="3" severity="error" message="Javadoc 首句应以句号结尾。" source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocStyleCheck"/>
+<error line="6" column="1" severity="error" message="缺少 @author 标签。" source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocTypeCheck"/>
+</file>
+<file name="D:\workspace\spring-framework-5.3.x\my-spring-debug\src\main\java\com\nj\design\pattern\bridge\ReadDrawCircle.java">
+<error line="1" severity="error" message="header.missing" source="io.spring.javaformat.checkstyle.check.SpringHeaderCheck"/>
+<error line="4" severity="error" message="Javadoc 首句应以句号结尾。" source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocStyleCheck"/>
+</file>
+<file name="D:\workspace\spring-framework-5.3.x\my-spring-debug\src\main\java\com\nj\entity\Person.java">
+<error line="1" severity="error" message="header.missing" source="io.spring.javaformat.checkstyle.check.SpringHeaderCheck"/>
+</file>
+<file name="D:\workspace\spring-framework-5.3.x\my-spring-debug\src\main\java\com\nj\entity\User.java">
+<error line="1" severity="error" message="header.missing" source="io.spring.javaformat.checkstyle.check.SpringHeaderCheck"/>
+</file>
+<file name="D:\workspace\spring-framework-5.3.x\my-spring-debug\src\main\java\com\nj\selfElement\ValueSet.java">
+<error line="1" severity="error" message="header.missing" source="io.spring.javaformat.checkstyle.check.SpringHeaderCheck"/>
+</file>
+<file name="D:\workspace\spring-framework-5.3.x\my-spring-debug\src\main\java\com\nj\selfElement\ValueSetBeanDefinitionParse.java">
+<error line="1" severity="error" message="Line does not match expected header line of &apos;^\Q/*\E$&apos;." source="io.spring.javaformat.checkstyle.check.SpringHeaderCheck"/>
+<error line="6" column="1" severity="error" message="导入 &apos;org.w3c.dom.Element&apos; 顺序错误。" source="com.puppycrawl.tools.checkstyle.checks.imports.ImportOrderCheck"/>
+</file>
+<file name="D:\workspace\spring-framework-5.3.x\my-spring-debug\src\main\java\com\nj\selfElement\ValueSetNamespaceHandler.java">
+<error line="1" severity="error" message="header.missing" source="io.spring.javaformat.checkstyle.check.SpringHeaderCheck"/>
+</file>
+</checkstyle>

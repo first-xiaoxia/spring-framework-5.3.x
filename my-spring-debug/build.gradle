@@ -1,0 +1,31 @@
+plugins {
+    id 'java'
+}
+
+group 'org.springframework'
+version '6.0.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':spring-context')
+    //引入lombok
+    implementation 'org.projectlombok:lombok:1.18.22'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+    //引入mysql
+    implementation 'mysql:mysql-connector-java:8.0.17'
+
+    //引入druid
+    implementation 'com.alibaba:druid:1.2.5'
+    annotationProcessor 'com.alibaba:druid:1.2.5'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+}
+
+test {
+    useJUnitPlatform()
+}

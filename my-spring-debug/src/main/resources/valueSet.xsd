@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<xsd:schema xmlns="http://www.nj.com/schema/valueSet"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://www.nj.com/schema/valueSet"
+			elementFormDefault="qualified"
+			attributeFormDefault="unqualified">
+
+	<xsd:element name="value-set">
+		<xsd:complexType>
+			<xsd:attribute name="id" type="xsd:string"/>
+			<xsd:attribute name="name" type="xsd:string"/>
+			<xsd:attribute name="value" type="xsd:string"/>
+		</xsd:complexType>
+	</xsd:element>
+
+	<!--<xsd:element name="value-set" type="value-set-type"></xsd:element>
+
+	&lt;!&ndash;  定义entry标签，引用entryType  &ndash;&gt;
+	<xsd:element name="car-obj" >
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="property" maxOccurs="unbounded"></xsd:element>
+			</xsd:sequence>
+			<xsd:attribute name="class" type="xsd:string"/>
+			<xsd:attribute name="id" type="xsd:string"/>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="property">
+		<xsd:complexType>
+			<xsd:attribute name="carName" type="xsd:string"/>
+			<xsd:attribute name="money" type="xsd:double"/>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="value-set-type">
+		<xsd:sequence>
+			<xsd:element ref="car-obj" maxOccurs="1"></xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:string"/>
+		<xsd:attribute name="value" type="xsd:string"/>
+	</xsd:complexType>-->
+</xsd:schema>

@@ -579,7 +579,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			try {
 				// 核心方法4
 				// Allows post-processing of the bean factory in context subclasses.
-				// 定义模板方法，用于扩展实现
+				// 定义模板方法，用于扩展实现，比如我们可以实现该方法，在这一步添加我们自定义的BeanFactoryPostProcessor类，然后在下一步进行操作
 				postProcessBeanFactory(beanFactory);
 
 				StartupStep beanPostProcess = this.applicationStartup.start("spring.context.beans.post-process");
@@ -731,7 +731,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			// 添加beanFactory的表达式语音处理器
 			beanFactory.setBeanExpressionResolver(new StandardBeanExpressionResolver(beanFactory.getBeanClassLoader()));
 		}
-		// 为beanFactory增加一个默认的properEditor,这个主要是对bean的属性等设置一个管理工具类
+		// 为beanFactory增加一个默认的properEditor,这个主要是对bean的属性等设置一个管理工具类，我们可以自己扩展自定义的propertyEditor
 		beanFactory.addPropertyEditorRegistrar(new ResourceEditorRegistrar(this, getEnvironment()));
 
 		// Configure the bean factory with context callbacks.
@@ -767,6 +767,10 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		beanFactory.addBeanPostProcessor(new ApplicationListenerDetector(this));
 
 		// Detect a LoadTimeWeaver and prepare for weaving, if found.
+		// 增加AspectJ的支持,在java中织入分为三种方式，编译器织入，类加载器织入，运行期织入
+		// 编译器织入是指java编译器采用特殊的编译器，将切面织入的java类中
+		// 类加载器织入是只在jvm加载字节码时，织入切面，运行期织入是采用cglib与jdk进行切面织入
+		// AspectJ支持两种织入方式 编译器织入、类加载器织入
 		if (!NativeDetector.inNativeImage() && beanFactory.containsBean(LOAD_TIME_WEAVER_BEAN_NAME)) {
 			beanFactory.addBeanPostProcessor(new LoadTimeWeaverAwareProcessor(beanFactory));
 			// Set a temporary ClassLoader for type matching.

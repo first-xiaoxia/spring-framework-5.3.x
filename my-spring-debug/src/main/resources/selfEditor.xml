@@ -18,11 +18,13 @@
 	</bean>-->
 
 	<!-- 第二种方式，直接添加到customEditors -->
-	<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+	<!--<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
 		<property name="customEditors">
 			<map>
 				<entry key="com.nj.selfEditor.Address" value="com.nj.selfEditor.AddressPropertyEditor"></entry>
 			</map>
 		</property>
-	</bean>
+	</bean>-->
+
+	<!-- 第三种方式，直接将AddressPropertyEditorRegistrar添加到beanFactory -->
 </beans>

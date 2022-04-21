@@ -80,14 +80,20 @@ public class ComponentScanBeanDefinitionParser implements BeanDefinitionParser {
 	@Override
 	@Nullable
 	public BeanDefinition parse(Element element, ParserContext parserContext) {
+		// 获取<context:component-scan>对应的base-package属性
 		String basePackage = element.getAttribute(BASE_PACKAGE_ATTRIBUTE);
+		// 解析占位符
 		basePackage = parserContext.getReaderContext().getEnvironment().resolvePlaceholders(basePackage);
+		// 解析base-package
 		String[] basePackages = StringUtils.tokenizeToStringArray(basePackage,
 				ConfigurableApplicationContext.CONFIG_LOCATION_DELIMITERS);
 
 		// Actually scan for bean definitions and register them.
+		// 构建和配置ClassPathBeanDefinitionScanner
 		ClassPathBeanDefinitionScanner scanner = configureScanner(parserContext, element);
+		// 使用scanner扫描package包
 		Set<BeanDefinitionHolder> beanDefinitions = scanner.doScan(basePackages);
+		// 注册组件（包括注册内部后置处理器，触发事件）
 		registerComponents(parserContext.getReaderContext(), beanDefinitions, element);
 
 		return null;
@@ -136,8 +142,9 @@ public class ComponentScanBeanDefinitionParser implements BeanDefinitionParser {
 			XmlReaderContext readerContext, Set<BeanDefinitionHolder> beanDefinitions, Element element) {
 
 		Object source = readerContext.extractSource(element);
+		// 使用注解的tagName和source构建CompositeComponentDefinition
 		CompositeComponentDefinition compositeDef = new CompositeComponentDefinition(element.getTagName(), source);
-
+		// 将扫描到的所有的beanDefinition添加compositeDef的nestedComponent属性中
 		for (BeanDefinitionHolder beanDefHolder : beanDefinitions) {
 			compositeDef.addNestedComponent(new BeanComponentDefinition(beanDefHolder));
 		}
@@ -145,16 +152,19 @@ public class ComponentScanBeanDefinitionParser implements BeanDefinitionParser {
 		// Register annotation config processors, if necessary.
 		boolean annotationConfig = true;
 		if (element.hasAttribute(ANNOTATION_CONFIG_ATTRIBUTE)) {
+			// 获取component-scan标签的annotation-config属性
 			annotationConfig = Boolean.parseBoolean(element.getAttribute(ANNOTATION_CONFIG_ATTRIBUTE));
 		}
 		if (annotationConfig) {
+			// 如果annotation-config属性为true，在给定的注册表中注册所有的用于注解的bean的后置处理器
 			Set<BeanDefinitionHolder> processorDefinitions =
 					AnnotationConfigUtils.registerAnnotationConfigProcessors(readerContext.getRegistry(), source);
 			for (BeanDefinitionHolder processorDefinition : processorDefinitions) {
+				// 将注册的后置处理器添加到compositeDef的nestedComponent属性中
 				compositeDef.addNestedComponent(new BeanComponentDefinition(processorDefinition));
 			}
 		}
-
+		// 触发组件注册事件，默认实现位EmptyReaderEventListener
 		readerContext.fireComponentRegistered(compositeDef);
 	}
 

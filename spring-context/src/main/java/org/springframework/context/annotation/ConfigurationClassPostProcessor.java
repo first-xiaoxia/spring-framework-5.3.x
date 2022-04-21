@@ -256,7 +256,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 					"postProcessBeanFactory already called on this post-processor against " + registry);
 		}
 		this.registriesPostProcessed.add(registryId);
-
+		// 处理配置类
 		processConfigBeanDefinitions(registry);
 	}
 
@@ -293,10 +293,13 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 	 * {@link Configuration} classes.
 	 */
 	public void processConfigBeanDefinitions(BeanDefinitionRegistry registry) {
+		// 定义一个集合接收需要处理的BeanDefinition对象
 		List<BeanDefinitionHolder> configCandidates = new ArrayList<>();
+		// 获取所有的beanDefinition的名称
 		String[] candidateNames = registry.getBeanDefinitionNames();
-
+		// 遍历beanDefinition的名称
 		for (String beanName : candidateNames) {
+			// 根据beanDefinitionName从beanDefinitionMap中获取BeanDefinition对象
 			BeanDefinition beanDef = registry.getBeanDefinition(beanName);
 			if (beanDef.getAttribute(ConfigurationClassUtils.CONFIGURATION_CLASS_ATTRIBUTE) != null) {
 				if (logger.isDebugEnabled()) {
@@ -304,6 +307,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 				}
 			}
 			else if (ConfigurationClassUtils.checkConfigurationClassCandidate(beanDef, this.metadataReaderFactory)) {
+				// 加到待处理的集合中
 				configCandidates.add(new BeanDefinitionHolder(beanDef, beanName));
 			}
 		}
@@ -314,6 +318,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 		}
 
 		// Sort by previously determined @Order value, if applicable
+		// 排序
 		configCandidates.sort((bd1, bd2) -> {
 			int i1 = ConfigurationClassUtils.getOrder(bd1.getBeanDefinition());
 			int i2 = ConfigurationClassUtils.getOrder(bd2.getBeanDefinition());
@@ -333,18 +338,21 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 				}
 			}
 		}
-
+		// 获取系统环境
 		if (this.environment == null) {
 			this.environment = new StandardEnvironment();
 		}
 
 		// Parse each @Configuration class
+		// 解析@configuration类
 		ConfigurationClassParser parser = new ConfigurationClassParser(
 				this.metadataReaderFactory, this.problemReporter, this.environment,
 				this.resourceLoader, this.componentScanBeanNameGenerator, registry);
 
 		Set<BeanDefinitionHolder> candidates = new LinkedHashSet<>(configCandidates);
+		// 创建一个set集合保存已处理的configuration类
 		Set<ConfigurationClass> alreadyParsed = new HashSet<>(configCandidates.size());
+		// 开始处理
 		do {
 			StartupStep processConfig = this.applicationStartup.start("spring.context.config-classes.parse");
 			parser.parse(candidates);

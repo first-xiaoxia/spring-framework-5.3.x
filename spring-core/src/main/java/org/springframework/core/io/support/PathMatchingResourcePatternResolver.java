@@ -277,10 +277,12 @@ public class PathMatchingResourcePatternResolver implements ResourcePatternResol
 	@Override
 	public Resource[] getResources(String locationPattern) throws IOException {
 		Assert.notNull(locationPattern, "Location pattern must not be null");
+		// 是否是已classpath*:开头，这里是的，能匹配进去
 		if (locationPattern.startsWith(CLASSPATH_ALL_URL_PREFIX)) {
 			// a class path resource (multiple resources for same name possible)
 			if (getPathMatcher().isPattern(locationPattern.substring(CLASSPATH_ALL_URL_PREFIX.length()))) {
 				// a class path resource pattern
+				// 查找classPath模型匹配的所有的Resource文件
 				return findPathMatchingResources(locationPattern);
 			}
 			else {
@@ -299,6 +301,7 @@ public class PathMatchingResourcePatternResolver implements ResourcePatternResol
 			}
 			else {
 				// a single resource with the given name
+				// 根据路径创建一个具体的Resource[]单元
 				return new Resource[] {getResourceLoader().getResource(locationPattern)};
 			}
 		}
@@ -492,12 +495,18 @@ public class PathMatchingResourcePatternResolver implements ResourcePatternResol
 	 * @see org.springframework.util.PathMatcher
 	 */
 	protected Resource[] findPathMatchingResources(String locationPattern) throws IOException {
+		// 获取根路径
 		String rootDirPath = determineRootDir(locationPattern);
+		// 获取路径的后面一部分
 		String subPattern = locationPattern.substring(rootDirPath.length());
+		// 根据根路径，获取该路径下的所有文件路径，并封装保存在Resource[] 数组中
 		Resource[] rootDirResources = getResources(rootDirPath);
 		Set<Resource> result = new LinkedHashSet<>(16);
+		// 遍历数组
 		for (Resource rootDirResource : rootDirResources) {
+			// 啥也不干
 			rootDirResource = resolveRootDirResource(rootDirResource);
+			// 获取文件路径
 			URL rootDirUrl = rootDirResource.getURL();
 			if (equinoxResolveMethod != null && rootDirUrl.getProtocol().startsWith("bundle")) {
 				URL resolvedUrl = (URL) ReflectionUtils.invokeMethod(equinoxResolveMethod, null, rootDirUrl);
@@ -513,6 +522,7 @@ public class PathMatchingResourcePatternResolver implements ResourcePatternResol
 				result.addAll(doFindPathMatchingJarResources(rootDirResource, rootDirUrl, subPattern));
 			}
 			else {
+				// 上面都匹配不到，执行这一步，将Resource添加到result的set集合中
 				result.addAll(doFindPathMatchingFileResources(rootDirResource, subPattern));
 			}
 		}
@@ -699,6 +709,7 @@ public class PathMatchingResourcePatternResolver implements ResourcePatternResol
 
 		File rootDir;
 		try {
+			// 获取一级目录下的所有文件与文件夹
 			rootDir = rootDirResource.getFile().getAbsoluteFile();
 		}
 		catch (FileNotFoundException ex) {
@@ -714,6 +725,7 @@ public class PathMatchingResourcePatternResolver implements ResourcePatternResol
 			}
 			return Collections.emptySet();
 		}
+		// 获取一级目录下的所有文件文件，包括文件夹下的子文件
 		return doFindMatchingFileSystemResources(rootDir, subPattern);
 	}
 

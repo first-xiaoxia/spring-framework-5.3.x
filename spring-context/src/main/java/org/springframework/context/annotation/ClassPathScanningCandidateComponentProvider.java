@@ -313,6 +313,7 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 			return addCandidateComponentsFromIndex(this.componentsIndex, basePackage);
 		}
 		else {
+			// 扫描basePackage包中候选的component
 			return scanCandidateComponents(basePackage);
 		}
 	}
@@ -413,11 +414,19 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 		return candidates;
 	}
 
+	/**
+	 * 扫描basePackage包中候选的component
+	 * @param basePackage
+	 * @return
+	 */
 	private Set<BeanDefinition> scanCandidateComponents(String basePackage) {
+		// 定义一个BeanDefinition的set集合
 		Set<BeanDefinition> candidates = new LinkedHashSet<>();
 		try {
+			// 将basePackage加上前后缀，classPath:,/**/*.class
 			String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX +
 					resolveBasePackage(basePackage) + '/' + this.resourcePattern;
+			//获取包下的所有的class文件
 			Resource[] resources = getResourcePatternResolver().getResources(packageSearchPath);
 			boolean traceEnabled = logger.isTraceEnabled();
 			boolean debugEnabled = logger.isDebugEnabled();
@@ -426,14 +435,18 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 					logger.trace("Scanning " + resource);
 				}
 				try {
+					// 创建一个MetadataReader，先从metadataReaderCache中获取，没有获取到创建一个，并添加到缓存中
 					MetadataReader metadataReader = getMetadataReaderFactory().getMetadataReader(resource);
+					// 判断是否是component候选者，核心方法
 					if (isCandidateComponent(metadataReader)) {
+						// 将metadataReader转换成一个ScannedGenericBeanDefinition对象
 						ScannedGenericBeanDefinition sbd = new ScannedGenericBeanDefinition(metadataReader);
-						sbd.setSource(resource);
+						sbd.setSource(resource); // 设置source属性
 						if (isCandidateComponent(sbd)) {
 							if (debugEnabled) {
 								logger.debug("Identified candidate component class: " + resource);
 							}
+							// 将对应的sbd添加到candidates集合中
 							candidates.add(sbd);
 						}
 						else {
@@ -485,12 +498,15 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 	 * @return whether the class qualifies as a candidate component
 	 */
 	protected boolean isCandidateComponent(MetadataReader metadataReader) throws IOException {
+		// 为空不执行
 		for (TypeFilter tf : this.excludeFilters) {
 			if (tf.match(metadataReader, getMetadataReaderFactory())) {
 				return false;
 			}
 		}
+		// 遍历执行判断
 		for (TypeFilter tf : this.includeFilters) {
+			// 判断metadataReader是否是MetadataReaderFactory
 			if (tf.match(metadataReader, getMetadataReaderFactory())) {
 				return isConditionMatch(metadataReader);
 			}

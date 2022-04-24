@@ -93,7 +93,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	@Override
 	public void registerBeanDefinitions(Document doc, XmlReaderContext readerContext) {
 		this.readerContext = readerContext;
-		// 看到do方法，就是实际工作的方法
+		// 看到do方法，就是实际工作的方法，注册beanDefinitions
 		doRegisterBeanDefinitions(doc.getDocumentElement());
 	}
 
@@ -131,7 +131,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 
 		// 是否根节点
 		if (this.delegate.isDefaultNamespace(root)) {
-			// 是否包含 profile
+			// 是否包含 profile，不包含，所有不执行
 			String profileSpec = root.getAttribute(PROFILE_ATTRIBUTE);
 			if (StringUtils.hasText(profileSpec)) {
 				String[] specifiedProfiles = StringUtils.tokenizeToStringArray(
@@ -150,7 +150,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 
 		//前置processXml,空方法，待子类实现，在springMVC的时候会有扩展的空间
 		preProcessXml(root);
-		// 解析beanDefinitions
+		// 解析beanDefinitions，核心方法
 		parseBeanDefinitions(root, this.delegate);
 		//后置processXml,空方法，待子类实现，在springMVC的时候会有扩展的空间
 		postProcessXml(root);
